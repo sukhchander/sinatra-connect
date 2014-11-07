@@ -1,11 +1,18 @@
 
 require 'sinatra'
 require 'sinatra/json'
+require 'sinatra/cross_origin'
 require 'pony'
+
+
 
 class Connect < Sinatra::Base
 
+  register Sinatra::CrossOrigin
+
   post '/connect' do
+    cross_origin
+
     email = Email.new(params)
     if email.send
       content_type :json
